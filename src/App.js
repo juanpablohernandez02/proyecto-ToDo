@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import data from "./data.json";
+import TodoList from "./TodoList";
+import TodoCreate from "./TodoCreate";
 
 function App() {
+  const [todos, setTodos] = useState(data);
+
+  const onComplete = (id) => {
+    console.log("id de tarea", id);
+
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === Number(id)
+          ? { ...todo, completed: !todo.completed }
+          : { ...todo };
+      })
+    );
+  };
+
+  const onDeleteItem = (id) => {
+    console.log("delete", id);
+    setTodos([...todos].filter((todo) => todo.id !== id));
+  };
+
+  const addTodo = (newTodo2) => {
+    console.log("newTodo", newTodo2);
+    newTodo2.id = todos.length + 1;
+    setTodos([...todos, newTodo2]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>tareas de hoy</h1>
+      <TodoCreate addTodo={addTodo} />
+      <TodoList
+        todos={todos}
+        onComplete={onComplete}
+        onDeleteItem={onDeleteItem}
+      />
     </div>
   );
 }
