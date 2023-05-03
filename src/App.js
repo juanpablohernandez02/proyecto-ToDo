@@ -30,6 +30,8 @@ function App() {
     setTodos([...todos, newTodo2]);
   };
 
+  //prueba
+
   return (
     <div className="container">
       <h1>tareas de hoy</h1>
