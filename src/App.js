@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>tareas de hoy</h1>
+      <h1>tarea de hoy</h1>
       <TodoCreate addTodo={addTodo} />
       <TodoList
         todos={todos}
